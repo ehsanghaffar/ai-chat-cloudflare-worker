@@ -1,7 +1,12 @@
 {
   "name": "llm-chat-app",
-  "description": "A chat application powered by Ein AI",
+  "description": "A chat application powered by cloudflare Workers and Workers AI.",
   "private": true,
+  "author": {
+    "name": "Ehsanghaffar",
+    "url": "https://github.com/Ehsanghaffar"
+  },
+  "version": "0.0.1",
   "cloudflare": {
     "label": "Ein Chat App",
     "products": [

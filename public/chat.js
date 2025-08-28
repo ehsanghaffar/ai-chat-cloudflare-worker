@@ -9,7 +9,7 @@ let chatHistory = [
   {
     role: "assistant",
     content:
-      "Hello! I'm an LLM chat app powered by Ein AI. How can I help you today?",
+      "Hello! I'm an LLM chat app. How can I help you today?",
   },
 ];
 let isProcessing = false;
