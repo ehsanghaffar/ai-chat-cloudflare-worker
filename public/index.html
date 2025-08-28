@@ -8,12 +8,18 @@
       :root {
         --primary-color: #f6821f;
         --primary-hover: #e67e22;
+        --primary-active: #d97518;
         --light-bg: #f9fafb;
         --border-color: #e5e7eb;
         --text-color: #1f2937;
         --text-light: #6b7280;
         --user-msg-bg: #fff2e6;
         --assistant-msg-bg: #f3f4f6;
+        --error-color: #ef4444;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
       }
 
       * {
@@ -31,6 +37,8 @@
         max-width: 800px;
         margin: 0 auto;
         padding: 1rem;
+        background-color: var(--light-bg);
+        min-height: 100vh;
       }
 
       header {
@@ -51,8 +59,10 @@
         height: calc(100vh - 200px);
         min-height: 400px;
         border: 1px solid var(--border-color);
-        border-radius: 8px;
+        border-radius: 12px;
         overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        background-color: white;
       }
 
       .chat-messages {
@@ -64,20 +74,55 @@
 
       .message {
         margin-bottom: 1rem;
-        padding: 0.75rem;
-        border-radius: 8px;
-        max-width: 80%;
+        padding: 0.875rem;
+        border-radius: 12px;
+        max-width: 85%;
+        box-shadow: var(--shadow);
+        animation: fadeIn 0.3s ease-out;
+        word-wrap: break-word;
+        position: relative;
       }
 
       .user-message {
         background-color: var(--user-msg-bg);
         align-self: flex-end;
         margin-left: auto;
+        border-bottom-right-radius: 4px;
       }
 
       .assistant-message {
         background-color: var(--assistant-msg-bg);
         align-self: flex-start;
+        border-bottom-left-radius: 4px;
+      }
+
+      .message p {
+        margin: 0;
+      }
+
+      .message pre {
+        background-color: rgba(0, 0, 0, 0.05);
+        padding: 0.5rem;
+        border-radius: 4px;
+        overflow-x: auto;
+        margin: 0.5rem 0;
+      }
+
+      .message code {
+        background-color: rgba(0, 0, 0, 0.05);
+        padding: 0.125rem 0.25rem;
+        border-radius: 3px;
+        font-family: 'Monaco', 'Consolas', monospace;
+      }
+
+      .message strong {
+        font-weight: 600;
+        color: var(--text-color);
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       .message-input {
@@ -99,33 +144,112 @@
 
       #send-button {
         margin-left: 0.5rem;
-        padding: 0 1rem;
+        padding: 0 1.25rem;
         background-color: var(--primary-color);
         color: white;
         border: none;
-        border-radius: 4px;
+        border-radius: 6px;
         cursor: pointer;
-        transition: background-color 0.2s;
+        transition: all 0.2s ease;
+        font-weight: 500;
+        min-width: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      #send-button:hover {
+      #send-button:hover:not(:disabled) {
         background-color: var(--primary-hover);
+        transform: translateY(-1px);
+      }
+
+      #send-button:active:not(:disabled) {
+        background-color: var(--primary-active);
+        transform: translateY(0);
       }
 
       #send-button:disabled {
         background-color: var(--text-light);
         cursor: not-allowed;
+        transform: none;
+      }
+
+      .loading-spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid transparent;
+        border-top: 2px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
 
       .typing-indicator {
         display: none;
         margin-bottom: 1rem;
+        padding: 0.5rem 1rem;
         font-style: italic;
         color: var(--text-light);
+        background-color: var(--assistant-msg-bg);
+        border-radius: 12px;
+        max-width: 200px;
+        align-self: flex-start;
+        animation: fadeIn 0.3s ease-out;
       }
 
       .typing-indicator.visible {
-        display: block;
+        display: flex;
+        align-items: center;
+      }
+
+      .typing-dots {
+        display: inline-flex;
+        align-items: center;
+        margin-left: 0.5rem;
+      }
+
+      .typing-dots span {
+        width: 4px;
+        height: 4px;
+        background-color: var(--text-light);
+        border-radius: 50%;
+        display: inline-block;
+        margin: 0 1px;
+        animation: typingDots 1.4s infinite;
+      }
+
+      .typing-dots span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .typing-dots span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes typingDots {
+        0%, 60%, 100% { opacity: 0.3; }
+        30% { opacity: 1; }
+      }
+
+      .error-message {
+        background-color: #fef2f2;
+        color: var(--error-color);
+        border: 1px solid #fecaca;
+        padding: 0.75rem;
+        border-radius: 8px;
+        margin: 0.5rem 0;
+      }
+
+      /* Responsive improvements */
+      @media (max-width: 768px) {
+        body { padding: 0.5rem; }
+        .message { max-width: 95%; }
+        .chat-container { height: calc(100vh - 150px); }
+        #user-input { font-size: 16px; } /* Prevents zoom on iOS */
       }
 
       footer {
@@ -153,7 +277,12 @@
       </div>
 
       <div class="typing-indicator" id="typing-indicator">
-        AI is thinking...
+        AI is thinking
+        <div class="typing-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
 
       <div class="message-input">
