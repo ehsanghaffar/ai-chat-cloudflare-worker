@@ -1,9 +1,9 @@
 {
-  "name": "llm-chat-app-template",
-  "description": "A simple chat application powered by Cloudflare Workers AI",
+  "name": "llm-chat-app",
+  "description": "A chat application powered by Ein AI",
   "private": true,
   "cloudflare": {
-    "label": "LLM Chat App",
+    "label": "Ein Chat App",
     "products": [
       "Workers",
       "Workers AI",
@@ -12,9 +12,7 @@
     "categories": [
       "ai"
     ],
-    "docs_url": "https://developers.cloudflare.com/workers-ai/",
     "icon_urls": [],
-    "preview_image_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/153a71bf-d89c-4425-e510-0c7488f22500/public",
     "publish": true
   },
   "devDependencies": {
