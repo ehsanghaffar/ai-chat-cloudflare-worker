@@ -6,6 +6,11 @@
     "name": "Ehsanghaffar",
     "url": "https://github.com/Ehsanghaffar"
   },
+  "keywords": [
+    "cloudflare",
+    "chat",
+    "ai"
+  ],
   "version": "0.0.1",
   "cloudflare": {
     "label": "Ein Chat App",
